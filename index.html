@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Send Message to Discord Webhook</title>
+  </head>
+  <body>
+    <form id="message-form">
+      <label for="message">Message:</label>
+      <textarea id="message" name="message" rows="50"></textarea>
+      <br>
+      <button type="submit">Send</button>
+    </form>
+    <script>
+      const webhookUrl = "https://discord.com/api/webhooks/1099111390574280806/FpF6BGSLd6uvY68I8o3iFWU6u6XFxJd_fd_UQtWRwWcpbUOMOZOBv1JM0AIAyJuzhUsK";
+      const form = document.getElementById("message-form");
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const message = document.getElementById("message").value;
+        const response = await fetch(webhookUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            content: message
+          })
+        });
+        if (response.ok) {
+          alert("Data sent successfully!");
+          document.getElementById("message").value = "";
+        } else {
+          alert("Failed to send data. Please try again.");
+        }
+      });
+    </script>
+  </body>
+</html>
